@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for,request
+from flask import Flask, render_template, url_for,request, redirect
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 #from classifier import SentimentClassifier
 import spacy
@@ -20,8 +20,6 @@ def home():
 
 @app.route('/process', methods = ['POST'])
 def process():
-
-
     nlp = spacy.load("en_core_web_md")
     sid = SentimentIntensityAnalyzer()
     #clf = SentimentClassifier()
@@ -71,7 +69,9 @@ def process():
 
     return render_template('index.html',results=results,num_of_results=num_of_results,results_lang=results_lang,sentiment_result=pred)
 
-
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     app.run(debug = True)
