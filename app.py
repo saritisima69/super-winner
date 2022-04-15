@@ -7,6 +7,8 @@ from spacy.language import Language
 from spacy_langdetect import LanguageDetector
 import en_core_web_md
 import es_core_news_md
+import nltk
+nltk.download('vader_lexicon')
 
 
 def get_lang_detector(nlp, name):
